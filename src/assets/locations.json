@@ -1,0 +1,42 @@
+[
+  {
+    "date": "2025-06-27",
+    "venue": "Tractor Supply",
+    "address": "2056 Vineland Dr Tallahassee, FL 32308",
+    "start": "11:00 AM",
+    "end": "5:00 PM",
+    "details": "Mahan and I-10 by the car Museum"
+  },
+  {
+    "date": "2025-06-28",
+    "venue": "Home Depot",
+    "address": "3200 Capital Cir NE Tallahassee, FL 32308",
+    "start": "11:00 AM",
+    "end": "5:00 PM",
+    "details": "NE Capital Circle"
+  },
+  {
+    "date": "2025-06-29",
+    "venue": "Shell Point",
+    "address": "117 Beaty Taff Drive Shell Point, FL 32327",
+    "start": "11:00 AM",
+    "end": "5:00 PM",
+    "details": ""
+  },
+  {
+    "date": "2025-07-30",
+    "venue": "Walmart",
+    "address": "4021 Lagniappe Way Tallahassee, FL 32317",
+    "start": "11:00 AM",
+    "end": "5:00 PM",
+    "details": "Buck Lake Rd off of Mahan, in front of the store"
+  },
+  {
+    "date": "2025-08-31",
+    "venue": "Marathon",
+    "address": "3626 Mahan Dr Tallahassee, FL 32308",
+    "start": "11:00 AM",
+    "end": "5:00 PM",
+    "details": "On Mahan"
+  }
+]
