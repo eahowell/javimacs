@@ -8,4 +8,7 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {}
+export class AppComponent {
+  title = 'Javi Macs';
+  currentYear = new Date().getFullYear();
+}
