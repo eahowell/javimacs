@@ -4,9 +4,9 @@ import { MenuComponent }    from './pages/menu/menu.component';
 import { ContactComponent } from './pages/contact/contact.component';
 
 export const routes: Routes = [
-  { path: '',        component: HomeComponent },
-  { path: 'menu',    component: MenuComponent },
-  { path: 'contact', component: ContactComponent },
+  { path: '',        component: HomeComponent, title: 'Javi Macs' },
+  { path: 'menu',    component: MenuComponent, title: 'Menu | Javi Macs' },
+  { path: 'contact', component: ContactComponent, title: 'Contact | Javi Macs' },
   { path: '**',      redirectTo: '' }
 ];
 
