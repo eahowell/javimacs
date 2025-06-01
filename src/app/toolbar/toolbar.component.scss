@@ -5,10 +5,16 @@
   position: sticky;
   top: 0;
   z-index: 1;
+  padding-top: 15px;
 }
 .theme-toggle {
   margin-left: auto;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.logo {
+  height: 75px;
+  width: auto;
+  margin-top: 15px;
 }
