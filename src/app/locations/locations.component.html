@@ -1,0 +1,16 @@
+@for (location of locations(); track location.id) {
+  <mat-card class="location-card" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>{{location.venue}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{location.details}}</p>
+    </mat-card-content>
+    <mat-card-footer class="example-card-footer">
+      <p>{{location.address}}</p>
+      <p>{{location.start}} - {{location.end}}</p>
+    </mat-card-footer>
+  </mat-card>
+} @empty {
+  <p>No upcoming locations available.</p>
+}
