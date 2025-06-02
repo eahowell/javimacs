@@ -11,13 +11,14 @@ import { LocationsComponent } from '../../locations/locations.component';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
-  locations: Location[] = [];
+export class HomeComponent{}
+// export class HomeComponent implements OnInit {
+//   locations: Location[] = [];
 
-  constructor(private locationService: LocationService) {}
+//   constructor(private locationService: LocationService) {}
 
-  ngOnInit(): void {
-    this.locationService.getLocations()
-      .subscribe(data => this.locations = data);
-  }
-}
+//   ngOnInit(): void {
+//     this.locationService.getLocations()
+//       .subscribe(data => this.locations = data);
+//   }
+// }
