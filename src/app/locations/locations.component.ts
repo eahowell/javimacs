@@ -5,6 +5,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { catchError, of, tap } from 'rxjs';
 import { AddressFormatPipe } from '../pipes/address-format.pipe';
 import { GoogleMapsUrlPipe } from '../pipes/google-maps-url.pipe';
@@ -30,6 +31,7 @@ export type Location = {
     MatCardModule,
     MatButtonModule,
     MatIconModule,
+    MatTooltipModule,
     CommonModule,
     AddressFormatPipe,
     GoogleMapsUrlPipe,

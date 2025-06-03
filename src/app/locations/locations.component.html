@@ -7,7 +7,7 @@
   </mat-card-header>
 
   <mat-card-content>
-    <p class="details" *ngIf="location.details">{{ location.details }}</p>
+    <p class="details">{{ location.details }}</p>
 
     <p class="address">
       <mat-icon class="address-icon">location_on</mat-icon>
@@ -28,6 +28,7 @@
       mat-raised-button
       color="primary"
       class="directions-button"
+      matTooltip="Get directions to this location"
     >
       <mat-icon>directions</mat-icon>
       Get Directions

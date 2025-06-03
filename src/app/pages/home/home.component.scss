@@ -1,0 +1,12 @@
+.upcoming {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15px;
+}
+.upcoming-locations {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+}
