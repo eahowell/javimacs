@@ -16,6 +16,7 @@
 @use "@angular/material" as mat;
 @use "./styles/_theme-colors.scss" as theme-colors;
 html {
+  // color-scheme: dark;/
   @include mat.theme(
     (
       color: (
