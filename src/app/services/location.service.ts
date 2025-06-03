@@ -8,6 +8,9 @@ export interface Location {
   date: string;
   venue: string;
   address: string;
+  city: string;
+  state: string;
+  zip: string;
   start: string;
   end: string;
   details: string;
