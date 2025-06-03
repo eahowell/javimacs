@@ -14,13 +14,12 @@
 //   ));
 // }
 @use "@angular/material" as mat;
-@use "./styles/theme-colors" as theme-colors;
-
+@use "./styles/_theme-colors.scss" as theme-colors;
 html {
   @include mat.theme(
     (
       color: (
-        theme-type: light,
+        theme-type: dark,
         primary: theme-colors.$primary-palette,
         tertiary: theme-colors.$tertiary-palette,
       ),
@@ -35,8 +34,10 @@ body {
   height: 100%;
 }
 body {
-  // margin: 0;
+  margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+body {
   background: var(--mat-sys-surface);
   color: var(--mat-sys-on-surface);
 }
