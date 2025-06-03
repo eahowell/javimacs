@@ -1,10 +1,84 @@
 .location-card {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center; // Changed from center to stretch for better layout
   padding: 16px;
   border: 1px solid #ccc;
   border-radius: 8px;
   margin: 8px;
   width: calc(33% - 16px);
+  min-height: 200px; // Ensure consistent card heights
+
+  // Responsive design - stack cards on smaller screens
+  @media (max-width: 768px) {
+    width: calc(100% - 16px);
+  }
+
+  @media (max-width: 1200px) and (min-width: 769px) {
+    width: calc(50% - 16px);
+  }
+}
+.location-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--mat-sys-on-surface);
+  // margin-bottom: 8px;
+}
+
+// Style the address section
+.address {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  margin: 8px 0;
+  font-weight: 500;
+  color: var(--mat-sys-on-surface-variant);
+
+  .address-icon {
+    font-size: 18px;
+    color: var(--mat-sys-primary);
+    text-align: center;
+  }
+}
+
+// Style the schedule section
+.schedule {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  margin: 8px 0;
+  font-size: 14px;
+  color: var(--mat-sys-on-surface-variant);
+
+  .schedule-icon {
+    font-size: 16px;
+    color: var(--mat-sys-secondary);
+    text-align: center;
+  }
+}
+
+// Style the details section
+.details {
+  font-style: italic;
+  text-align: center;
+  color: var(--mat-sys-on-surface-variant);
+  margin: 8px 0 20px;
+  font-size: 16px;
+}
+
+// Style the directions button
+.directions-button {
+  margin-top: auto; // Push button to bottom of card
+
+  mat-icon {
+    margin-right: 8px;
+  }
+}
+
+// Style the empty state
+.no-locations {
+  text-align: center;
+  color: var(--mat-sys-on-surface-variant);
+  font-size: 18px;
+  padding: 40px;
 }

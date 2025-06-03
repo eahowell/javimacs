@@ -1,16 +1,39 @@
 @for (location of locations(); track location.id) {
-  <mat-card class="location-card" appearance="outlined">
-    <mat-card-header>
-      <mat-card-title>{{location.venue}}</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <p>{{location.details}}</p>
-    </mat-card-content>
-    <mat-card-footer class="example-card-footer">
-      <p>{{location.address}}</p>
-      <p>{{location.start}} - {{location.end}}</p>
-    </mat-card-footer>
-  </mat-card>
+<mat-card class="location-card" appearance="outlined">
+  <mat-card-header>
+    <mat-card-title class="location-title">
+      {{ location.date | date }} | {{ location.venue }}
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <p class="details" *ngIf="location.details">{{ location.details }}</p>
+
+    <p class="address">
+      <mat-icon class="address-icon">location_on</mat-icon>
+      {{ location | addressFormat }}
+    </p>
+
+    <p class="schedule">
+      <mat-icon class="schedule-icon">schedule</mat-icon>
+      {{ location.start }} - {{ location.end }}
+    </p>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <a
+      [href]="location | googleMapsUrl"
+      target="_blank"
+      rel="noopener noreferrer"
+      mat-raised-button
+      color="primary"
+      class="directions-button"
+    >
+      <mat-icon>directions</mat-icon>
+      Get Directions
+    </a>
+  </mat-card-actions>
+</mat-card>
 } @empty {
-  <p>No upcoming locations available.</p>
+<p class="no-locations">No upcoming locations available.</p>
 }

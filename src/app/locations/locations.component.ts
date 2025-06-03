@@ -1,8 +1,13 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { catchError, of, tap } from 'rxjs';
+import { AddressFormatPipe } from '../pipes/address-format.pipe';
+import { GoogleMapsUrlPipe } from '../pipes/google-maps-url.pipe';
 
 // Interface matching the structure of the JSON file
 export type Location = {
@@ -21,13 +26,22 @@ export type Location = {
 @Component({
   selector: 'app-locations',
   standalone: true,
-  imports: [MatCardModule],
+  imports: [
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    CommonModule,
+    AddressFormatPipe,
+    GoogleMapsUrlPipe,
+    DatePipe
+  ],
   templateUrl: './locations.component.html',
   styleUrls: ['./locations.component.scss'],
 })
 export class LocationsComponent {
   http = inject(HttpClient);
-   // Added detailed logging to help debug what's happening
+
+  // Added detailed logging to help debug what's happening
   locations = toSignal(
     this.http.get<Location[]>('assets/locations.json').pipe(
       tap(data => {
@@ -59,8 +73,7 @@ export class LocationsComponent {
       })
     ),
     {
-      initialValue: [], // Start with empty array while loading
+      initialValue: [],
     }
   );
-
 }
