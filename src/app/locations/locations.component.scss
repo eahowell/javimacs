@@ -32,8 +32,8 @@ $secondary-container: var(--mat-sys-secondary-container);
   border-radius: $border-radius;
   min-width: 350px;
   min-height: 200px;
-  width: auto;
-
+  width: calc(100% - 16px);
+  
   // header inside card
   .location-header {
     @include flex-center;
