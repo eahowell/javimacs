@@ -1,23 +1,39 @@
 .spacer {
   flex: 1 1 auto;
 }
-// .mat-toolbar {
-//   background: inherit;
-// }
+
 .mat-toolbar.mat-primary {
   position: sticky;
   top: 0;
   z-index: 1;
   padding-top: 15px;
 }
-.theme-toggle {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+
 .logo {
   height: 75px;
   width: auto;
   margin-top: 15px;
+
+  transition: opacity 0.2s ease;
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+// Styling for navigation buttons
+.nav-button {
+  padding: 25px 20px;
+  font-size: 1.25rem;
+  transition: all 0.3s ease;
+  &:hover:not(.active) {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+// Active state styling
+.active {
+  background-color: var(--mat-sys-primary) !important;
+  color: var(--mat-sys-background) !important;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }

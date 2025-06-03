@@ -1,17 +1,34 @@
 <!DOCTYPE html>
 
 <mat-toolbar color="primary" class="fixed-toolbar">
-  <span class="logo-container"
-    ><a routerLink="" routerLinkActive="active">
+  <span class="logo-container">
+    <a routerLink="">
       <img src="cropped-Final_Logo.png" alt="Javi Macs Logo" class="logo"
       matTooltip="Navigate to Home"
       />
-    </a></span>
+    </a>
+  </span>
   <span class="spacer"></span>
 
-  <button mat-button routerLink="" routerLinkActive="active">Home</button>
-  <button mat-button routerLink="/menu" routerLinkActive="active">Menu</button>
-  <button mat-button routerLink="/contact" routerLinkActive="active">
+  <button mat-button
+          routerLink=""
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="nav-button">
+    Home
+  </button>
+
+  <button mat-button
+          routerLink="/menu"
+          routerLinkActive="active"
+          class="nav-button">
+    Menu
+  </button>
+
+  <button mat-button
+          routerLink="/contact"
+          routerLinkActive="active"
+          class="nav-button">
     Contact
   </button>
 </mat-toolbar>
