@@ -1,85 +1,133 @@
-.location-card {
+// 1. Variables
+$card-padding: 16px;
+$border-radius: 15px;
+$gap: 8px;
+$font-color: var(--mat-sys-on-surface);
+$font-color-variant: var(--mat-sys-on-surface-variant);
+$primary-color: var(--mat-sys-primary);
+$background-color: var(--mat-sys-background);
+$secondary-container: var(--mat-sys-secondary-container);
+
+// 2. Mixins & placeholders
+@mixin flex-center($dir: row) {
   display: flex;
-  flex-direction: column;
+  flex-direction: $dir;
   align-items: center;
-  padding: 16px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  margin: 8px;
-  min-width: 450px;
-  width: calc(33% - 16px);
-  min-height: 200px; // Ensure consistent card heights
-
-  // Responsive design - stack cards on smaller screens
-  @media (max-width: 768px) {
-    width: calc(100% - 16px);
-  }
-
-  @media (max-width: 1200px) and (min-width: 769px) {
-    width: calc(50% - 16px);
-  }
-}
-.location-title {
-  font-size: 20px;
-  font-weight: bold;
-  color: var(--mat-sys-on-surface);
-  // margin-bottom: 8px;
 }
 
-// Style the address section
-.address {
-  display: flex;
-  align-items: stretch;
-  gap: 8px;
-  margin: 8px 0;
+%info-row {
+  @include flex-center();
+  gap: $gap;
+  margin: $gap 0;
   font-weight: 500;
-  color: var(--mat-sys-on-surface-variant);
+  color: $font-color-variant;
+}
 
+// 3. Main card
+.location-card {
+  @include flex-center;
+  padding: $card-padding;
+  margin: $gap;
+  border: 1px solid #ccc;
+  border-radius: $border-radius;
+  min-width: 350px;
+  min-height: 200px;
+  width: auto;
+
+  // header inside card
+  .location-header {
+    @include flex-center;
+    background-color: $secondary-container;
+    margin: 0;
+    padding: 70px 25px;
+    width: 60px !important;
+    border-radius: $border-radius;
+  }
+
+  // content region
+  .location-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+  }
+
+  // titles
+  .date-title,
+  .venue-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: $font-color;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .venue-title {
+    font-weight: bold;
+  }
+
+  // actions
+  .location-actions {
+    @include flex-center(column);
+    justify-content: space-between;
+    height: 100%;
+    padding: $gap;
+
+    .directions-button {
+      margin-top: auto;
+      @include flex-center;
+      background-color: $primary-color;
+      color: $background-color;
+
+      mat-icon {
+        margin-right: $gap;
+      }
+    }
+  }
+
+  // responsive widths
+  @media (max-width: 768px) {
+    width: calc(100% - #{2 * $gap});
+  }
+
+  @media (min-width: 769px) and (max-width: 1200px) {
+    width: calc(50% - #{2 * $gap});
+  }
+}
+
+// 4. Shared info rows
+.address {
+  @extend %info-row;
   .address-icon {
     font-size: 18px;
-    color: var(--mat-sys-primary);
+    color: $primary-color;
     text-align: center;
   }
 }
 
-// Style the schedule section
 .schedule {
-  display: flex;
-  align-items: stretch;
-  gap: 8px;
-  margin: 8px 0;
-  font-size: 14px;
-  color: var(--mat-sys-on-surface-variant);
+  @extend %info-row;
+  font-size: 16px;
 
   .schedule-icon {
     font-size: 16px;
-    color: var(--mat-sys-primary);
+    color: $primary-color;
     text-align: center;
   }
 }
 
-// Style the details section
+// 5. Miscellaneous
 .details {
   font-style: italic;
   text-align: center;
-  color: var(--mat-sys-on-surface-variant);
-  margin: 8px 0 20px;
+  color: $font-color-variant;
+  margin: $gap 0 20px;
   font-size: 16px;
 }
 
-// Style the directions button
-.directions-button {
-  margin-top: auto; // Push button to bottom of card
-
-  mat-icon {
-    margin-right: 8px;
-  }
-}
-
-// Style the empty state
 .no-locations {
   text-align: center;
-  color: var(--mat-sys-on-surface-variant);
+  color: $font-color-variant;
   font-size: 18px;
   padding: 40px;
 }

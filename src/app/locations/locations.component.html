@@ -1,26 +1,27 @@
 @for (location of locations(); track location.id) {
 <mat-card class="location-card" appearance="outlined">
-  <mat-card-header>
-    <mat-card-title class="location-title">
-      {{ location.date | date }} | {{ location.venue }}
+  <mat-card-header class="location-header">
+    <mat-card-title class="date-title">
+      {{ location.date | date: 'EEE MMM d y' }}
     </mat-card-title>
   </mat-card-header>
 
-  <mat-card-content>
+  <mat-card-content class="location-content">
+    <mat-card-title class="venue-title">{{ location.venue }}</mat-card-title>
     <p class="details">{{ location.details }}</p>
+
+    <p class="schedule">
+      <mat-icon class="schedule-icon">schedule</mat-icon>
+      {{ location.start }} - {{ location.end }}
+    </p>
 
     <p class="address">
       <mat-icon class="address-icon">location_on</mat-icon>
       {{ location | addressFormat }}
     </p>
 
-    <p class="schedule">
-      <mat-icon class="schedule-icon">schedule</mat-icon>
-      {{ location.start }} - {{ location.end }}
-    </p>
-  </mat-card-content>
 
-  <mat-card-actions>
+  <mat-card-actions class="location-actions">
     <a
       [href]="location | googleMapsUrl"
       target="_blank"
@@ -33,7 +34,7 @@
       <mat-icon>directions</mat-icon>
       Get Directions
     </a>
-  </mat-card-actions>
+  </mat-card-actions></mat-card-content>
 </mat-card>
 } @empty {
 <p class="no-locations">No upcoming locations available.</p>
