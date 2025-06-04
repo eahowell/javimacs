@@ -1,1 +1,487 @@
-<p>menu works!</p>
+<div [class]="getContainerClasses()">
+
+  <!-- =============================================== -->
+  <!-- HEADER SECTION - NAVIGATION & CONTROLS         -->
+  <!-- =============================================== -->
+
+
+  <header class="menu-header">
+
+    <!-- =========== HERO SECTION =========== -->
+    <div class="hero-section">
+      <h1 class="menu-title"> Cubanos & Gringos</h1>
+      <p class="menu-subtitle">
+        Our food truck offers a unique blend of Cuban and American foods
+      </p>
+
+      <!-- Filter Status Display (for accessibility and user feedback) -->
+      <div class="filter-status"
+           [class.visible]="hasActiveFilters()"
+           aria-live="polite">
+        <mat-icon>filter_list</mat-icon>
+        <span>{{ getFilterDescription() }}</span>
+        <span class="item-count">({{ filteredItemCount() }} items found)</span>
+      </div>
+    </div>
+
+    <!-- =========== FILTER CONTROLS =========== -->
+    <div class="menu-controls">
+
+      <!-- Category Filter Chips -->
+      <div class="category-filters">
+        <h3>Browse by Category</h3>
+        <mat-chip-set
+          aria-label="Category filters"
+          class="category-chip-set">
+
+          <!-- All Categories Option -->
+          <mat-chip-option
+            [selected]="selectedCategory() === null"
+            (click)="selectCategory(null)"
+            class="all-categories-chip">
+            <mat-icon>restaurant_menu</mat-icon>
+            All Items
+            @if (selectedCategory() === null) {
+              <span class="item-count">({{ getTotalItemCount() }})</span>
+            }
+          </mat-chip-option>
+
+          <!-- Individual Category Chips -->
+          @for (config of categoryConfigs; track config.category) {
+            <mat-chip-option
+              [selected]="selectedCategory() === config.category"
+              (click)="selectCategory(config.category)"
+              [class]="'category-chip-' + config.category">
+
+              <mat-icon [color]="config.color">{{ config.icon }}</mat-icon>
+              {{ config.displayName }}
+
+              <!-- Category Item Count -->
+              <span class="item-count">({{ getCategoryItemCount(config.category) }})</span>
+
+              <!-- Popular Items Indicator -->
+              <!-- @if (getPopularItemCountForCategory(config.category) > 0) {
+                <mat-icon class="popular-indicator"
+                         matTooltip="{{ getPopularItemCountForCategory(config.category) }} popular items">
+                  star
+                </mat-icon>
+              } -->
+
+              <!-- Remove Filter Button (when selected) -->
+              @if (selectedCategory() === config.category) {
+                <button mat-icon-button matChipRemove aria-label="Remove filter">
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              }
+            </mat-chip-option>
+          }
+        </mat-chip-set>
+      </div>
+
+      <!-- =========== VIEW OPTIONS =========== -->
+      <div class="view-controls">
+
+        <!-- Popular Filter Toggle -->
+        <!-- <div class="popular-toggle">
+          <mat-chip-option
+            [selected]="showOnlyPopular()"
+            (click)="togglePopularOnly()"
+            class="popular-filter-chip">
+            <mat-icon>star</mat-icon>
+            Popular Items Only
+            @if (showOnlyPopular()) {
+              <span class="item-count">({{ filteredItemCount() }} items)</span>
+            }
+          </mat-chip-option>
+        </div> -->
+
+        <!-- Layout Mode Selector -->
+        <div class="layout-selector"
+             role="group"
+             aria-label="Choose layout style">
+
+          <button
+            mat-icon-button
+            [class.active]="layoutMode() === 'cards'"
+            (click)="setLayoutMode('cards')"
+            matTooltip="Card View - Visual layout with detailed item cards"
+            aria-label="Switch to card layout">
+            <mat-icon>view_module</mat-icon>
+          </button>
+
+          <button
+            mat-icon-button
+            [class.active]="layoutMode() === 'list'"
+            (click)="setLayoutMode('list')"
+            matTooltip="List View - Compact layout for quick scanning"
+            aria-label="Switch to list layout">
+            <mat-icon>view_list</mat-icon>
+          </button>
+
+          <button
+            mat-icon-button
+            [class.active]="layoutMode() === 'accordion'"
+            (click)="setLayoutMode('accordion')"
+            matTooltip="Category View - Organized by expandable categories"
+            aria-label="Switch to accordion layout">
+            <mat-icon>view_agenda</mat-icon>
+          </button>
+        </div>
+
+        <!-- Clear Filters Button -->
+        @if (hasActiveFilters()) {
+          <button
+            mat-button
+            (click)="clearAllFilters()"
+            class="clear-filters-btn"
+            matTooltip="Remove all active filters">
+            <mat-icon>clear_all</mat-icon>
+            Clear Filters
+          </button>
+        }
+      </div>
+    </div>
+  </header>
+
+  <!-- =============================================== -->
+  <!-- MAIN CONTENT AREA - LAYOUT SWITCHING           -->
+  <!-- =============================================== -->
+  <!--
+       This section contains the core functionality - the different
+       layout modes for displaying menu items. Each layout is
+       completely self-contained for easy maintenance.
+
+       The @if directives create clear visual boundaries in the
+       template that are easily visible in the IDE minimap.
+  -->
+
+  <main class="menu-content" role="main">
+
+    <!-- =========================================== -->
+    <!-- CARD LAYOUT - DEFAULT VIEW                 -->
+    <!-- =========================================== -->
+    <!--
+         Card layout provides the most visual and modern presentation.
+         Each item gets its own card with complete information.
+         This layout is optimized for browsing and discovery.
+    -->
+    @if (layoutMode() === 'cards') {
+      <section class="cards-layout" aria-label="Menu items in card layout">
+
+        <!-- Show category sections when no specific category is selected -->
+        @if (selectedCategory() === null) {
+          @for (config of categoryConfigs; track config.category) {
+            <div class="category-section" [attr.data-category]="config.category">
+
+              <!-- Category Header -->
+              <div class="category-header">
+                <div class="category-title">
+                  <mat-icon [color]="config.color" class="category-icon">
+                    {{ config.icon }}
+                  </mat-icon>
+                  <h2>{{ config.displayName }}</h2>
+
+                  <!-- Popular Items Badge -->
+                  <!-- @if (categoryHasPopularItems(config.category)) {
+                    <mat-icon class="popular-indicator"
+                             color="warn"
+                             [matBadge]="getPopularItemCountForCategory(config.category)"
+                             matBadgeColor="warn"
+                             matBadgeSize="small"
+                             matTooltip="This category has popular items">
+                      star
+                    </mat-icon>
+                  } -->
+                </div>
+                <p class="category-description">{{ config.description }}</p>
+              </div>
+
+              <!-- Menu Items Grid -->
+              <div class="menu-grid">
+                @for (item of getItemsForCategory(config.category); track item.id) {
+                  @if (itemMatchesFilters(item)) {
+
+                    <!-- Individual Menu Item Card -->
+                    <mat-card class="menu-item-card"
+                             [class.popular]="item.isPopular"
+                             (click)="onItemSelected(item)">
+
+                      <!-- Popular Badge -->
+                      @if (item.isPopular) {
+                        <div class="popular-badge">
+                          <mat-icon>star</mat-icon>
+                          Popular
+                        </div>
+                      }
+
+                      <!-- Card Header -->
+                      <mat-card-header>
+                        <mat-card-title>{{ item.name }}</mat-card-title>
+                        <mat-card-subtitle class="price">
+                          {{ formatPrice(item.price) }}
+                        </mat-card-subtitle>
+                      </mat-card-header>
+
+                      <!-- Card Content -->
+                      <mat-card-content>
+                        <p class="item-description">{{ item.description }}</p>
+                      </mat-card-content>
+
+                      <!-- Card Actions -->
+                      <mat-card-actions>
+                      </mat-card-actions>
+                    </mat-card>
+                  }
+                }
+              </div>
+            </div>
+          }
+        } @else {
+          <!-- Filtered Results View (when category is selected) -->
+          <div class="filtered-results">
+            <div class="results-header">
+              <h2>{{ getCategoryConfig(selectedCategory()!)?.displayName }} Items</h2>
+              <p>{{ filteredItems().length }} items found</p>
+            </div>
+
+            <div class="menu-grid">
+              @for (item of filteredItems(); track item.id) {
+                <!-- Reuse the same card template as above -->
+                <mat-card class="menu-item-card"
+                         [class.popular]="item.isPopular"
+                         (click)="onItemSelected(item)">
+
+                  <!-- @if (item.isPopular) {
+                    <div class="popular-badge">
+                      <mat-icon>star</mat-icon>
+                      Popular
+                    </div>
+                  } -->
+
+                  <mat-card-header>
+                    <mat-card-title>{{ item.name }}</mat-card-title>
+                    <mat-card-subtitle class="price">{{ formatPrice(item.price) }}</mat-card-subtitle>
+                  </mat-card-header>
+
+                  <mat-card-content>
+                    <p class="item-description">{{ item.description }}</p>
+                  </mat-card-content>
+
+                  <mat-card-actions>
+                  </mat-card-actions>
+                </mat-card>
+              }
+            </div>
+          </div>
+        }
+      </section>
+    }
+
+    <!-- =========================================== -->
+    <!-- LIST LAYOUT - COMPACT VIEW                 -->
+    <!-- =========================================== -->
+    <!--
+         List layout maximizes information density for quick scanning.
+         Ideal for mobile devices or when users want to see many items
+         at once without scrolling extensively.
+    -->
+    @if (layoutMode() === 'list') {
+      <section class="list-layout" aria-label="Menu items in list layout">
+        @for (item of filteredItems(); track item.id) {
+          <mat-card class="menu-item-list"
+                   [class.popular]="item.isPopular"
+                   (click)="onItemSelected(item)">
+
+            <div class="list-item-content">
+              <!-- Item Information -->
+              <div class="item-info">
+                <div class="item-header">
+                  <h3 class="item-name">
+                    {{ item.name }}
+
+                    <!-- Inline Indicators -->
+                    @if (item.isPopular) {
+                      <mat-icon class="popular-icon" color="warn">star</mat-icon>
+                    }
+                  </h3>
+                  <span class="item-price">{{ formatPrice(item.price) }}</span>
+                </div>
+                <p class="item-description">{{ item.description }}</p>
+
+                <!-- Category Badge (helpful in list view) -->
+                <span class="category-badge">{{ getCategoryConfig(item.category)?.displayName }}</span>
+              </div>
+
+              <!-- Quick Actions -->
+              <div class="item-actions">
+              </div>
+            </div>
+          </mat-card>
+        }
+      </section>
+    }
+
+    <!-- =========================================== -->
+    <!-- ACCORDION LAYOUT - CATEGORY-ORGANIZED VIEW -->
+    <!-- =========================================== -->
+    <!--
+         Accordion layout organizes items by category with expandable sections.
+         Excellent for large menus where users want to focus on one category
+         at a time. Reduces cognitive load by hiding irrelevant information.
+    -->
+    @if (layoutMode() === 'accordion') {
+      <section class="accordion-layout" aria-label="Menu items organized by category">
+        <mat-accordion class="menu-accordion">
+
+          @for (config of categoryConfigs; track config.category) {
+            <mat-expansion-panel
+              [expanded]="selectedCategory() === config.category"
+              (opened)="selectCategory(config.category)"
+              (closed)="selectCategory(null)"
+              class="category-panel">
+
+              <!-- Panel Header -->
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <mat-icon [color]="config.color" class="category-icon">
+                    {{ config.icon }}
+                  </mat-icon>
+                  {{ config.displayName }}
+
+                  <!-- Popular Items Indicator -->
+                  <!-- @if (categoryHasPopularItems(config.category)) {
+                    <mat-icon class="popular-indicator"
+                             color="warn"
+                             matTooltip="This category has popular items">
+                      star
+                    </mat-icon>
+                  } -->
+                </mat-panel-title>
+
+                <mat-panel-description>
+                  {{ config.description }}
+                  <span class="item-count">
+                    {{ getCategoryItemCount(config.category) }} items
+                  </span>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+              <!-- Panel Content -->
+              <div class="accordion-content">
+                @for (item of getItemsForCategory(config.category); track item.id) {
+                  @if (itemMatchesFilters(item)) {
+                    <div class="accordion-item"
+                         [class.popular]="item.isPopular"
+                         (click)="onItemSelected(item)">
+
+                      <!-- Item Details -->
+                      <div class="item-details">
+                        <div class="item-header">
+                          <h4>{{ item.name }}</h4>
+                          <span class="price">{{ formatPrice(item.price) }}</span>
+                        </div>
+                        <p class="item-description">{{ item.description }}</p>
+
+                        <!-- Item Badges -->
+                        <div class="item-badges">
+                          @if (item.isPopular) {
+                            <mat-chip class="popular-chip">
+                              <mat-icon>star</mat-icon>
+                              Popular
+                            </mat-chip>
+                          }
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Item Divider (except for last item) -->
+                    @if (!$last) {
+                      <mat-divider class="item-divider"></mat-divider>
+                    }
+                  }
+                }
+              </div>
+            </mat-expansion-panel>
+          }
+        </mat-accordion>
+      </section>
+    }
+
+  </main>
+
+  <!-- =============================================== -->
+  <!-- SHARED/REUSABLE TEMPLATES                       -->
+  <!-- =============================================== -->
+  <!--
+       Templates that could be reused across different layouts.
+       Defined once and referenced multiple times to reduce duplication.
+       Currently not used, but ready for future refactoring.
+  -->
+
+  <!-- Template for item badges (not currently used, but available) -->
+  <ng-template #itemBadges let-item="item">
+    @if (item.isPopular) {
+      <mat-chip class="popular-chip">
+        <mat-icon>star</mat-icon>
+        Popular
+      </mat-chip>
+    }
+  </ng-template>
+
+  <!-- =============================================== -->
+  <!-- ERROR STATES AND EDGE CASES                     -->
+  <!-- =============================================== -->
+  <!--
+       These sections handle unusual conditions and error states.
+       Positioned at the bottom since they're modified least frequently,
+       but are essential for a complete user experience.
+  -->
+
+  <!-- Empty State (no items found) -->
+  @if (filteredItems().length === 0 && menuItems().length > 0) {
+    <div class="empty-state" role="region" aria-label="No items found">
+      <mat-icon class="empty-icon">restaurant_menu</mat-icon>
+      <h3>No items found</h3>
+      <p>
+        @if (hasActiveFilters()) {
+          Try adjusting your filters to see more items.
+        } @else {
+          We're working on adding more delicious options to our menu.
+        }
+      </p>
+
+      @if (hasActiveFilters()) {
+        <button mat-button color="primary" (click)="clearAllFilters()">
+          <mat-icon>clear_all</mat-icon>
+          Clear All Filters
+        </button>
+      }
+    </div>
+  }
+
+  <!-- Loading State (when data is being fetched) -->
+  @if (menuItems().length === 0) {
+    <div class="loading-state" role="region" aria-label="Loading menu items">
+      <mat-icon class="loading-icon">restaurant_menu</mat-icon>
+      <h3>Loading our delicious menu...</h3>
+      <p>Please wait while we prepare our latest offerings for you.</p>
+    </div>
+  }
+
+  <!-- =============================================== -->
+  <!-- ACCESSIBILITY HELPERS                           -->
+  <!-- =============================================== -->
+  <!--
+       Hidden elements that improve accessibility without affecting
+       visual design. These provide context for screen readers.
+  -->
+
+  <!-- Screen reader announcements -->
+  <div class="sr-only" aria-live="polite" aria-atomic="true">
+    @if (hasActiveFilters()) {
+      Showing {{ filteredItemCount() }} of {{ getTotalItemCount() }} menu items. {{ getFilterDescription() }}
+    }
+  </div>
+
+</div>
+
