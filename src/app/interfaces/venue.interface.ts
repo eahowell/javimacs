@@ -1,3 +1,4 @@
+// src/app/interfaces/venue.interface.ts
 export interface Venue {
   id: string;
   name: string;
@@ -7,4 +8,8 @@ export interface Venue {
   zip: string;
   isActive: boolean;
   createdDate: Date;
+  // Optional: operational details
+  contactPhone?: string;
+  contactEmail?: string;
+  notes?: string;
 }
