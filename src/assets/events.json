@@ -1,0 +1,57 @@
+[
+  {
+    "id": "event-1",
+    "venueId": "venue-1",
+    "date": "2025-05-27",
+    "startTime": "11:00 AM",
+    "endTime": "5:00 PM",
+    "details": "Regular food truck service",
+    "isActive": true,
+    "createdDate": "2025-01-15T00:00:00.000Z",
+    "expectedAttendance": 50
+  },
+  {
+    "id": "event-2",
+    "venueId": "venue-2",
+    "date": "2025-06-28",
+    "startTime": "11:00 AM",
+    "endTime": "5:00 PM",
+    "details": "Regular food truck service",
+    "isActive": true,
+    "createdDate": "2025-01-15T00:00:00.000Z",
+    "expectedAttendance": 40
+  },
+  {
+    "id": "event-3",
+    "venueId": "venue-3",
+    "date": "2025-06-29",
+    "startTime": "11:00 AM",
+    "endTime": "5:00 PM",
+    "details": "Weekend special location",
+    "isActive": true,
+    "createdDate": "2025-01-15T00:00:00.000Z",
+    "expectedAttendance": 30
+  },
+  {
+    "id": "event-4",
+    "venueId": "venue-4",
+    "date": "2025-07-30",
+    "startTime": "11:00 AM",
+    "endTime": "5:00 PM",
+    "details": "Regular food truck service",
+    "isActive": true,
+    "createdDate": "2025-01-15T00:00:00.000Z",
+    "expectedAttendance": 60
+  },
+  {
+    "id": "event-5",
+    "venueId": "venue-5",
+    "date": "2025-08-31",
+    "startTime": "11:00 AM",
+    "endTime": "5:00 PM",
+    "details": "End of summer special",
+    "isActive": true,
+    "createdDate": "2025-01-15T00:00:00.000Z",
+    "expectedAttendance": 45
+  }
+]

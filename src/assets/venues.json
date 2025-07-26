@@ -1,0 +1,57 @@
+[
+  {
+    "id": "venue-1",
+    "name": "Tractor Supply",
+    "address": "2056 Vineland Dr",
+    "city": "Tallahassee",
+    "state": "FL",
+    "zip": "32308",
+    "isActive": true,
+    "createdDate": "2025-01-01T00:00:00.000Z",
+    "contactPhone": "(850) 555-0123",
+    "notes": "Mahan and I-10 by the car Museum"
+  },
+  {
+    "id": "venue-2",
+    "name": "Home Depot",
+    "address": "3200 Capital Cir NE",
+    "city": "Tallahassee",
+    "state": "FL",
+    "zip": "32308",
+    "isActive": true,
+    "createdDate": "2025-01-01T00:00:00.000Z",
+    "notes": "NE Capital Circle"
+  },
+  {
+    "id": "venue-3",
+    "name": "Shell Point",
+    "address": "117 Beaty Taff Drive",
+    "city": "Shell Point",
+    "state": "FL",
+    "zip": "32327",
+    "isActive": true,
+    "createdDate": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "venue-4",
+    "name": "Walmart",
+    "address": "4021 Lagniappe Way",
+    "city": "Tallahassee",
+    "state": "FL",
+    "zip": "32317",
+    "isActive": true,
+    "createdDate": "2025-01-01T00:00:00.000Z",
+    "notes": "Buck Lake Rd off of Mahan, in front of the store"
+  },
+  {
+    "id": "venue-5",
+    "name": "Marathon",
+    "address": "3626 Mahan Dr",
+    "city": "Tallahassee",
+    "state": "FL",
+    "zip": "32308",
+    "isActive": true,
+    "createdDate": "2025-01-01T00:00:00.000Z",
+    "notes": "On Mahan"
+  }
+]
