@@ -1,0 +1,75 @@
+@for (event of upcomingEvents(); track event.id) {
+<mat-card class="event-list-card" appearance="outlined">
+  <mat-card-header class="event-list-header">
+    <mat-card-title class="date-title">
+      {{ event.date | date : "EEE MMM d y" }}
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content class="event-list-content">
+    <mat-card-title class="venue-title">{{ event.venue.name }}</mat-card-title>
+    <p class="details">{{ event.details }}</p>
+
+    <!-- Enhanced details showing additional information now available -->
+    @if (event.expectedAttendance) {
+    <p class="attendance">
+      <mat-icon class="attendance-icon">people</mat-icon>
+      Expected attendance: {{ event.expectedAttendance }}
+    </p>
+    } @if (event.specialRequirements) {
+    <p class="special-requirements">
+      <mat-icon class="special-icon">info</mat-icon>
+      {{ event.specialRequirements }}
+    </p>
+    }
+
+    <p class="schedule">
+      <mat-icon class="schedule-icon">schedule</mat-icon>
+      {{ event.startTime }} - {{ event.endTime }}
+    </p>
+
+    <p class="address">
+      <mat-icon class="address-icon">location_on</mat-icon>
+      {{ event | addressFormat }}
+    </p>
+
+    <!-- Additional venue information now easily accessible -->
+    @if (event.venue.contactPhone) {
+    <p class="contact">
+      <mat-icon class="contact-icon">phone</mat-icon>
+      {{ event.venue.contactPhone }}
+    </p>
+    } @if (event.venue.notes) {
+      <p class="venue-notes">{{ event.venue.notes }}</p>
+
+    }
+
+    <mat-card-actions class="event-list-actions">
+      <a
+        [href]="event | googleMapsUrl"
+        target="_blank"
+        rel="noopener noreferrer"
+        mat-raised-button
+        color="primary"
+        class="directions-button"
+        matTooltip="Get directions to {{ event.venue.name }}"
+      >
+        <mat-icon>directions</mat-icon>
+        Get Directions
+      </a>
+    </mat-card-actions>
+  </mat-card-content>
+</mat-card>
+} @empty {
+<div class="no-event-lists">
+  <mat-icon class="empty-icon">event_busy</mat-icon>
+  <h3>No upcoming events scheduled</h3>
+  <p>Check back soon for new events, or contact us for private bookings!</p>
+
+  <!-- Optional: Add manual refresh for empty state -->
+  <button mat-button color="primary" (click)="refreshEvents()">
+    <mat-icon>refresh</mat-icon>
+    Check for Updates
+  </button>
+</div>
+}

@@ -24,18 +24,18 @@ $secondary-container: var(--mat-sys-secondary-container);
 }
 
 // 3. Main card
-.location-card {
+.event-list-card {
   @include flex-center;
   padding: $card-padding;
   margin: $gap;
   border: 1px solid #ccc;
   border-radius: $border-radius;
-  min-width: 350px;
+  min-width: calc(100% - 16px);
   min-height: 200px;
   width: calc(100% - 16px);
-  
+
   // header inside card
-  .location-header {
+  .event-list-header {
     @include flex-center;
     background-color: $secondary-container;
     margin: 0;
@@ -45,12 +45,12 @@ $secondary-container: var(--mat-sys-secondary-container);
   }
 
   // content region
-  .location-content {
+  .event-list-content {
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 10px;
+    padding: 5px;
   }
 
   // titles
@@ -67,14 +67,15 @@ $secondary-container: var(--mat-sys-secondary-container);
   }
 
   // actions
-  .location-actions {
+  .event-list-actions {
     @include flex-center(column);
     justify-content: space-between;
     height: 100%;
-    padding: $gap;
+    // padding: $gap;
 
     .directions-button {
-      margin-top: auto;
+      margin-top: 8px;
+      margin-bottom: 0px;
       @include flex-center;
       background-color: $primary-color;
       color: $background-color;
@@ -98,6 +99,8 @@ $secondary-container: var(--mat-sys-secondary-container);
 // 4. Shared info rows
 .address {
   @extend %info-row;
+  margin-bottom: 1px;
+
   .address-icon {
     font-size: 18px;
     color: $primary-color;
@@ -125,9 +128,16 @@ $secondary-container: var(--mat-sys-secondary-container);
   font-size: 16px;
 }
 
-.no-locations {
+.no-event-lists {
   text-align: center;
   color: $font-color-variant;
   font-size: 18px;
   padding: 40px;
+}
+.venue-notes {
+  font-style: italic;
+  text-align: center;
+  color: $primary-color;
+  margin: 0 auto;
+  font-size: .8rem;
 }
