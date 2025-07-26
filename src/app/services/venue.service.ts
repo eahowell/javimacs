@@ -1,15 +1,15 @@
 // src/app/services/venue.service.ts
 
-import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
 import {
-  Observable,
-  of,
   BehaviorSubject,
-  shareReplay,
+  Observable,
   catchError,
-  tap,
   map,
+  of,
+  shareReplay,
+  tap,
 } from 'rxjs';
 import { Venue } from '../interfaces/venue.interface';
 
@@ -38,24 +38,21 @@ export class VenueService {
   }
 
   // First call makes HTTP request, subsequent calls use cached data
-
   getVenues(): Observable<Venue[]> {
     if (!this.venuesCache$) {
-      console.log('🏢 VenueService: Creating new HTTP request stream');
 
       this.venuesCache$ = this.http.get<any[]>(this.apiUrl).pipe(
-        tap((rawData) => {
-          console.log(
-            `📥 VenueService: Received ${rawData.length} raw venue records`
-          );
-        }),
+        // tap((rawData) => {
+        //   console.log(
+        //     `📥 VenueService: Received ${rawData.length} raw venue records`
+        //   );
+        // }),
         map((rawData) => this.transformVenueData(rawData)),
         tap((transformedData) => {
-          console.log(
-            `✅ VenueService: Successfully transformed ${transformedData.length} venues`
-          );
-        }),
-        tap((transformedData) => {
+          // console.log(
+          //   `✅ VenueService: Successfully transformed ${transformedData.length} venues`
+          // );
+          // Update our BehaviorSubject with the transformed data
           this.venuesSubject.next(transformedData);
         }),
         catchError((error: HttpErrorResponse) => {
@@ -66,32 +63,12 @@ export class VenueService {
         // Ensures multiple subscribers get the same cached result
         shareReplay({ bufferSize: 1, refCount: false })
       );
-
-      // Actually execute the request and transform
-      this.venuesCache$ = this.http.get<any[]>(this.apiUrl).pipe(
-        tap((rawData) => {
-          const transformedData = this.transformVenueData(rawData);
-          console.log(
-            `✅ VenueService: Successfully transformed ${transformedData.length} venues`
-          );
-          this.venuesSubject.next(transformedData);
-        }),
-        catchError((error: HttpErrorResponse) => {
-          console.error('❌ VenueService: Failed to load venues', error);
-          this.venuesSubject.next([]);
-          return of([]);
-        }),
-        // Return the transformed data
-        shareReplay({ bufferSize: 1, refCount: false })
-      );
     } else {
-      console.log('📦 VenueService: Using cached venue data');
     }
 
-    return this.venues$; // Return the BehaviorSubject stream which has transformed data
+    return this.venuesCache$;
   }
   refreshVenues(): Observable<Venue[]> {
-    console.log('🔄 VenueService: Force refreshing venue data');
     this.venuesCache$ = null;
     return this.getVenues();
   }
