@@ -1,13 +1,13 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { CommonModule }      from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-import { LocationsComponent } from '../../locations/locations.component';
+import { EventListComponent } from '../../locations/eventList.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, MatCardModule, LocationsComponent],
+  imports: [CommonModule, MatCardModule, EventListComponent],
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent{}
+export class HomeComponent {}

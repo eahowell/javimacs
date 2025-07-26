@@ -56,7 +56,9 @@ $desktop: 1200px;
   grid-template-columns: repeat(auto-fit, minmax($min-width, 1fr));
   gap: $gap;
 }
-
+.body-content {
+  width: 100%;
+}
 .hero-section {
   text-align: center;
   margin-bottom: $spacing-xl;
@@ -80,12 +82,7 @@ $desktop: 1200px;
     line-height: 1.6;
   }
 }
-// .body-content {
-//   display: grid;
-//   justify-content: center;
-//   width: 100%;
 
-// }
 .announcement {
   display: flex;
   flex-direction: column;
@@ -117,8 +114,8 @@ $desktop: 1200px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 15px;
-  .upcoming-locations {
+  margin-top: 10px;
+  .upcoming-event-list {
     gap: 16px;
     padding: 16px;
   }
