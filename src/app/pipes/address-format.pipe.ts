@@ -1,42 +1,42 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Location } from '../services/location.service';
+import { EventWithVenue } from '../services/event-management.service';
 
 /**
- * Transforms location object into a formatted address string
+ * Transforms EventWithVenue object into a formatted address string
  *
  * Example usage in template:
- * {{ location | addressFormat }}
+ * {{ eventWithVenue | addressFormat }}
  *
  * Output: "2056 Vineland Dr, Tallahassee, FL 32308"
  */
 @Pipe({
   name: 'addressFormat',
   standalone: true,
-  pure: true
+  pure: true,
 })
 export class AddressFormatPipe implements PipeTransform {
-
   /**
-   * Transforms a Location object into a formatted address string
+   * Transforms an EventWithVenue object into a formatted address string
    *
-   * @param location - The location object containing address fields
-   * @returns Formatted address string, or empty string if location is null/undefined
+   * @param eventWithVenue - The event with venue object containing address fields
+   * @returns Formatted address string, or empty string if eventWithVenue is null/undefined
    */
-  transform(location: Location | null | undefined): string {
-    if (!location) {
+  transform(eventWithVenue: EventWithVenue | null | undefined): string {
+    if (!eventWithVenue || !eventWithVenue.venue) {
       return '';
     }
 
+    const venue = eventWithVenue.venue;
     const addressParts: string[] = [];
 
-    if (location.address?.trim()) {
-      addressParts.push(location.address.trim());
+    if (venue.address?.trim()) {
+      addressParts.push(venue.address.trim());
     }
-    if (location.city?.trim()) {
-      addressParts.push(location.city.trim());
+    if (venue.city?.trim()) {
+      addressParts.push(venue.city.trim());
     }
 
-    const stateZip = this.formatStateZip(location.state, location.zip);
+    const stateZip = this.formatStateZip(venue.state, venue.zip);
     if (stateZip) {
       addressParts.push(stateZip);
     }
@@ -44,7 +44,10 @@ export class AddressFormatPipe implements PipeTransform {
     return addressParts.join(', ');
   }
 
-  private formatStateZip(state: string | undefined, zip: string | undefined): string {
+  private formatStateZip(
+    state: string | undefined,
+    zip: string | undefined
+  ): string {
     const trimmedState = state?.trim();
     const trimmedZip = zip?.trim();
 
