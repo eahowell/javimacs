@@ -60,19 +60,17 @@ export class EventService {
   // First call makes HTTP request, subsequent calls use cached data
   getEvents(): Observable<Event[]> {
     if (!this.eventsCache$) {
-      console.log('📅 EventService: Creating new HTTP request stream');
-
       this.eventsCache$ = this.http.get<any[]>(this.apiUrl).pipe(
-        tap((rawData) => {
-          console.log(
-            `📥 EventService: Received ${rawData.length} raw event records`
-          );
-        }),
+        // tap((rawData) => {
+        //   console.log(
+        //     `📥 EventService: Received ${rawData.length} raw event records`
+        //   );
+        // }),
         map((rawData) => this.transformEventData(rawData)),
         tap((transformedData) => {
-          console.log(
-            `✅ EventService: Successfully transformed ${transformedData.length} events`
-          );
+          // console.log(
+          //   `✅ EventService: Successfully transformed ${transformedData.length} events`
+          // );
           this.eventsSubject.next(transformedData);
         }),
         catchError((error: HttpErrorResponse) => {
@@ -89,7 +87,7 @@ export class EventService {
     return this.eventsCache$;
   }
   refreshEvents(): Observable<Event[]> {
-    console.log('🔄 EventService: Force refreshing event data');
+    // console.log('🔄 EventService: Force refreshing event data');
     this.eventsCache$ = null;
     return this.getEvents();
   }
