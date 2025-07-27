@@ -98,4 +98,5 @@ export class VenueService {
         venue.city.toLowerCase().includes(lowercaseQuery)
     );
   }
+  constructor() { };
 }

@@ -19,4 +19,5 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './toolbar.component.scss',
 })
 export class ToolbarComponent {
+  constructor() { }
 }

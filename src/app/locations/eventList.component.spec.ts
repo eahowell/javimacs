@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { EventListComponent } from './eventList.component';
 
 describe('EventListComponent', () => {
@@ -8,7 +8,10 @@ describe('EventListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EventListComponent],
+      imports: [
+        EventListComponent,
+        HttpClientTestingModule,
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(EventListComponent);

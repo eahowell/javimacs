@@ -10,7 +10,6 @@ import {
 } from 'rxjs';
 import { EventService } from './event.service';
 import { VenueService } from './venue.service';
-import { Event } from '../interfaces/event.interface';
 import { Venue } from '../interfaces/venue.interface';
 export interface EventWithVenue {
   id: string;
