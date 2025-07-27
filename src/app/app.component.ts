@@ -13,4 +13,5 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 export class AppComponent {
   title = 'Javi Mac\'s';
   currentYear = new Date().getFullYear();
+  constructor() {};
 }
